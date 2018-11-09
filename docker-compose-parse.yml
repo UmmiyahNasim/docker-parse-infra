@@ -1,14 +1,34 @@
-version: "3"
-# You can add Volume Plugin driver here
-volumes:
-  mongo_data:
-    external: true
+version: "3.1"
 
 services:
+
+  parse-server:
+    image: ummiyah/parse-code
+    environment:
+      PARSE_SERVER_APPLICATION_ID: "PARSE_APP"
+      PARSE_SERVER_MASTER_KEY: "PARSE_MASTER_KEY"
+      PARSE_SERVER_DATABASE_URI: "mongodb://mongo/parse_db"
+      PARSE_SERVER_FILE_KEY: "FILE_KEY"
+      PARSE_SERVER_JAVASCRIPT_KEY: "JAVASCRIPT_KEY"
+
+    ports:
+      - "1337:1337"
+    depends_on:
+      - mongo
+
+    deploy:
+      replicas: 2
+      restart_policy:
+        condition: on-failure
+
   mongo:
     image: mongo:3.2
     ports:
       - "27017:27017"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=example
+      - MONGO_INITDB_DATABASE=example-database
     volumes:
       - mongo_data:/data/db
     deploy:
@@ -16,19 +36,7 @@ services:
       restart_policy:
         condition: on-failure
 
-  parse-server:
-    image: aamir010/parse-code
-    environment:
-      PARSE_SERVER_APPLICATION_ID: "MY_APP"
-      PARSE_SERVER_MASTER_KEY: "MY_MASTER"
-      PARSE_SERVER_DATABASE_URI: "mongodb://mongo/parse_db"
-      PARSE_SERVER_FILE_KEY: "FILE_KEY"
-      PARSE_SERVER_JAVASCRIPT_KEY: "JAVASCRIPT_KEY"
-    ports:
-      - "1337:1337"
-    deploy:
-      replicas: 2
-      restart_policy:
-        condition: on-failure
+volumes:
+  mongo_data:
+    external: true
 
-    
