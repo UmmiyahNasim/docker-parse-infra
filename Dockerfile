@@ -1,4 +1,4 @@
-FROM aamir010/parse-server:2.4.2
+FROM ummiyah/parse-server:2.4.2
 
 ADD cloud /parse-server/cloud
 
