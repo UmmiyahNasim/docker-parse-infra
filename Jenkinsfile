@@ -33,8 +33,8 @@ pipeline {
             }
         }
         stage(' Docker Deploy') {
-            sh '''scp docker-compose.yml root@$DOCKER-SWARM-MANAGER:/home
-                  ssh root@$DOCKER-SWARM-MANAGER "docker stack deploy -c /home/docker-compose.yml parse-server-stack" '''
+            sh '''scp docker-compose-parse.yml root@$DOCKER-SWARM-MANAGER:/home
+                  ssh root@$DOCKER-SWARM-MANAGER "docker stack deploy -c /home/docker-compose-parse.yml parse-server-stack" '''
         }
     }
 }
