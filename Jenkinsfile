@@ -11,7 +11,7 @@ pipeline {
     stages {
         stage('git') {
             steps {
-                git url: 'https://github.com/ummiyahnasim/parser-server.git'
+                git url: 'https://github.com/ummiyahnasim/docker-parse-infra.git'
             }
         }
         stage('Docker Build') {
