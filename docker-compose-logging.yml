@@ -7,7 +7,7 @@ networks:
 services:
 
   prometheus:
-    image: aamir010/prometheus
+    image: ummiyah/prometheus
     ports:
       - '9090:9090'
     networks:
